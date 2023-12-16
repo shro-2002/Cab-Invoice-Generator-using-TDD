@@ -36,4 +36,15 @@ class InvoiceTest {
 		assertEquals(240.0, totalFare);
 	}
 
+	@Test
+	void generateInvoice_ShouldReturnCorrectSummary() {
+		List<Ride> rides = Arrays.asList(new Ride(5, 25), new Ride(3, 15), new Ride(4, 30));
+
+		Invoice summary = invoiceGenerator.InvoiceSummary(rides);
+
+		assertEquals(3, summary.getTotalRides());
+		assertEquals(190.0, summary.getTotalFare(), 0.0);
+		assertEquals(63.33, summary.getAverageFarePerRide(),0.01);
+
+	}
 }
