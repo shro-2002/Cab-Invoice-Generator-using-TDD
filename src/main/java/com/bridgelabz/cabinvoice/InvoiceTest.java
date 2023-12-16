@@ -1,4 +1,4 @@
-package com.bridgelabz.test;
+package com.bridgelabz.cabinvoice;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -28,12 +28,12 @@ class InvoiceTest {
 	@Test
 	public void calculateFareForMultipleRides() {
 		List<Ride> rides = Arrays.asList(
-				new Ride(5, 30), 
-				new Ride(2, 15), 
-				new Ride(8, 45)
-				);
-		double totalFare = invoiceGenerator.calculateAggregateTotal(rides);
-		assertEquals(140.0, totalFare);
+
+				new Ride(5, 30), new Ride(2, 15), new Ride(8, 45)
+
+		);
+		double totalFare = invoiceGenerator.MultipleRidesFare(rides);
+		assertEquals(240.0, totalFare);
 	}
 
 }
