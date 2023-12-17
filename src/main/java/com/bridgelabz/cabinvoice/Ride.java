@@ -11,17 +11,18 @@ public class Ride {
 
 	private double distance;
 	private double time;
+	private RideType ride;
 
 	/*
-	 * @Description - Initializing the distance and time of the journey
 	 * 
 	 * @params: double distance, double time
 	 * 
 	 * @return: No return value
 	 */
-	public Ride(double distance, double time) {
+	public Ride(double distance, double time, RideType ride) {
 		this.distance = distance;
 		this.time = time;
+		this.ride = ride;
 	}
 
 	/*
@@ -44,5 +45,16 @@ public class Ride {
 	 */
 	public double getTime() {
 		return time;
+	}
+
+	/*
+	 * @Description - To create a getter method of ride type
+	 * 
+	 * @params: No parameters
+	 * 
+	 * @return: RideType ride
+	 */
+	public RideType getRide() {
+		return ride;
 	}
 }

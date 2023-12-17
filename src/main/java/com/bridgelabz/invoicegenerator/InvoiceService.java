@@ -1,20 +1,25 @@
-package com.bridgelabz.cabinvoice;
+package com.bridgelabz.invoicegenerator;
 
 import java.util.List;
 
+import com.bridgelabz.cabinvoice.Invoice;
+import com.bridgelabz.cabinvoice.Ride;
+import com.bridgelabz.cabinvoice.RideRepository;
+
 /*
- * @Description - InvoiceService class to generate invoice of the journey for a particular user
+ * @Description -InvoiceService class to generate invoice of the ride for a particular user
  * 
  * @Properties - rideRepository, invoiceGenerator
  * 
- * @Methods - generateInvoice
+ * @Methods - generateInvoice, constructor
  */
 public class InvoiceService {
+
 	private RideRepository rideRepository;
 	private InvoiceGenerator invoiceGenerator;
 
 	/*
-	 * @Description - Initializing the rideRepository and invoiceGenerator
+	 * @Description - T Constructor to initialize the object
 	 * 
 	 * @params: RideRepository rideRepository, InvoiceGenerator invoiceGenerator
 	 * 
@@ -41,4 +46,5 @@ public class InvoiceService {
 
 		return invoiceGenerator.InvoiceSummary(userRides);
 	}
+
 }

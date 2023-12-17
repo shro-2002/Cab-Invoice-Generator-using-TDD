@@ -1,4 +1,4 @@
-package com.bridgelabz.cabinvoice;
+package com.bridgelabz.test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -7,6 +7,13 @@ import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import com.bridgelabz.cabinvoice.Invoice;
+import com.bridgelabz.cabinvoice.Ride;
+import com.bridgelabz.cabinvoice.RideRepository;
+import com.bridgelabz.cabinvoice.RideType;
+import com.bridgelabz.invoicegenerator.InvoiceGenerator;
+import com.bridgelabz.invoicegenerator.InvoiceService;
 
 /*
  * @Description - TDD for Cab Invoice Generator
@@ -41,9 +48,9 @@ class InvoiceTest {
 	 */
 	@Test
 	public void TestFareForSingleRide() {
-		double fare = invoiceGenerator.CalculateFare(5, 30);
-		assertEquals(80.0, fare);
-		double faremin = invoiceGenerator.CalculateFare(0.3, 0.4);
+		double fare = invoiceGenerator.CalculateFare(5, 30, RideType.PREMIUM);
+		assertEquals(135.0, fare);
+		double faremin = invoiceGenerator.CalculateFare(0.3, 0.4, RideType.NORMAL);
 		assertEquals(5.0, faremin);
 	}
 
@@ -59,11 +66,11 @@ class InvoiceTest {
 	public void TestFareForMultipleRides() {
 		List<Ride> rides = Arrays.asList(
 
-				new Ride(5, 30), new Ride(2, 15), new Ride(8, 45)
+				new Ride(5, 30, RideType.NORMAL), new Ride(2, 15, RideType.PREMIUM), new Ride(8, 45, RideType.NORMAL)
 
 		);
 		double totalFare = invoiceGenerator.MultipleRidesFare(rides);
-		assertEquals(240.0, totalFare);
+		assertEquals(265.0, totalFare);
 	}
 
 	/*
@@ -75,27 +82,41 @@ class InvoiceTest {
 	 */
 	@Test
 	void TestInvoice() {
-		List<Ride> rides = Arrays.asList(new Ride(5, 25), new Ride(3, 15), new Ride(4, 30));
+		List<Ride> rides = Arrays.asList(new Ride(5, 25, RideType.NORMAL), new Ride(3, 15, RideType.PREMIUM),
+				new Ride(4, 30, RideType.NORMAL));
 
 		Invoice summary = invoiceGenerator.InvoiceSummary(rides);
 
 		assertEquals(3, summary.getTotalRides());
-		assertEquals(190.0, summary.getTotalFare(), 0.0);
-		assertEquals(63.33, summary.getAverageFarePerRide(), 0.01);
+		assertEquals(220.0, summary.getTotalFare(), 0.0);
+		assertEquals(73.33, summary.getAverageFare(), 0.01);
 
 	}
 
+	/*
+	 * @Description - Asserting Invoice Summary with the expected summary for a
+	 * particular user
+	 * 
+	 * @params: No parameters
+	 * 
+	 * @return: No return value
+	 */
+	@Test
 	void TestInvoiceService() {
-		// Create sample data
 		RideRepository rideRepository = new RideRepository();
-		InvoiceService invoiceService = new InvoiceService(rideRepository, invoiceGenerator);
 
-		rideRepository.addRides("user1", Arrays.asList(new Ride(5.0, 25), new Ride(3.0, 15), new Ride(7.0, 30)));
+		rideRepository.addRides("user1", Arrays.asList(
+						new Ride(5, 25, RideType.NORMAL),
+						new Ride(3, 15, RideType.PREMIUM), 
+						new Ride(7, 30, RideType.NORMAL))
+				);
+
+		InvoiceService invoiceService = new InvoiceService(rideRepository, invoiceGenerator);
 
 		Invoice invoice = invoiceService.generateInvoice("user1");
 
 		assertEquals(3, invoice.getTotalRides());
-		assertEquals(145.0, invoice.getTotalFare(), 0.0);
-		assertEquals(48.33, invoice.getAverageFarePerRide(), 0.01);
+		assertEquals(250.0, invoice.getTotalFare());
+		assertEquals(83.33, invoice.getAverageFare(), 0.01);
 	}
 }

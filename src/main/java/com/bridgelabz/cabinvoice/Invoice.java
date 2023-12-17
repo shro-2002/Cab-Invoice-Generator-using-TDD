@@ -55,7 +55,7 @@ public class Invoice {
 	 * 
 	 * @return: double averageFarePerRide
 	 */
-	public double getAverageFarePerRide() {
+	public double getAverageFare() {
 		return averageFarePerRide;
 	}
 
