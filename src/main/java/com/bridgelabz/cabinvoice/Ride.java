@@ -3,7 +3,7 @@ package com.bridgelabz.cabinvoice;
 /*
  * @Description - Ride class to store the distance and time of the journey
  * 
- * @Properties - distance, time
+ * @Properties - distance, time, ride
  * 
  * @Methods - Constructor, Getters
  */
@@ -14,6 +14,7 @@ public class Ride {
 	private RideType ride;
 
 	/*
+	 * @Description: Initialization of the object
 	 * 
 	 * @params: double distance, double time
 	 * 

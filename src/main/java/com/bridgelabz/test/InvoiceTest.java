@@ -47,11 +47,11 @@ class InvoiceTest {
 	 * @return: No return value
 	 */
 	@Test
-	public void TestFareForSingleRide() {
-		double fare = invoiceGenerator.CalculateFare(5, 30, RideType.PREMIUM);
+	public void testFareForSingleRide() {
+		double fare = invoiceGenerator.calculateFare(5, 30, RideType.PREMIUM);
 		assertEquals(135.0, fare);
-		double faremin = invoiceGenerator.CalculateFare(0.3, 0.4, RideType.NORMAL);
-		assertEquals(5.0, faremin);
+		double faremin = invoiceGenerator.calculateFare(0.3, 0.4, RideType.NORMAL);
+		assertEquals(faremin, 5.0);
 	}
 
 	/*
@@ -63,13 +63,13 @@ class InvoiceTest {
 	 * @return: No return value
 	 */
 	@Test
-	public void TestFareForMultipleRides() {
+	public void testFareForMultipleRides() {
 		List<Ride> rides = Arrays.asList(
 
 				new Ride(5, 30, RideType.NORMAL), new Ride(2, 15, RideType.PREMIUM), new Ride(8, 45, RideType.NORMAL)
 
 		);
-		double totalFare = invoiceGenerator.MultipleRidesFare(rides);
+		double totalFare = invoiceGenerator.multipleRidesFare(rides);
 		assertEquals(265.0, totalFare);
 	}
 
@@ -81,11 +81,11 @@ class InvoiceTest {
 	 * @return: No return value
 	 */
 	@Test
-	void TestInvoice() {
+	void testInvoice() {
 		List<Ride> rides = Arrays.asList(new Ride(5, 25, RideType.NORMAL), new Ride(3, 15, RideType.PREMIUM),
 				new Ride(4, 30, RideType.NORMAL));
 
-		Invoice summary = invoiceGenerator.InvoiceSummary(rides);
+		Invoice summary = invoiceGenerator.invoiceSummary(rides);
 
 		assertEquals(3, summary.getTotalRides());
 		assertEquals(220.0, summary.getTotalFare(), 0.0);
@@ -105,11 +105,8 @@ class InvoiceTest {
 	void TestInvoiceService() {
 		RideRepository rideRepository = new RideRepository();
 
-		rideRepository.addRides("user1", Arrays.asList(
-						new Ride(5, 25, RideType.NORMAL),
-						new Ride(3, 15, RideType.PREMIUM), 
-						new Ride(7, 30, RideType.NORMAL))
-				);
+		rideRepository.addRides("user1", Arrays.asList(new Ride(5, 25, RideType.NORMAL),
+				new Ride(3, 15, RideType.PREMIUM), new Ride(7, 30, RideType.NORMAL)));
 
 		InvoiceService invoiceService = new InvoiceService(rideRepository, invoiceGenerator);
 

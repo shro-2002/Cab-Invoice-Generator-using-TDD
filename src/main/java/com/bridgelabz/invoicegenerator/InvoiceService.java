@@ -44,7 +44,7 @@ public class InvoiceService {
 			throw new IllegalArgumentException("No rides found for the given user ID");
 		}
 
-		return invoiceGenerator.InvoiceSummary(userRides);
+		return invoiceGenerator.invoiceSummary(userRides);
 	}
 
 }

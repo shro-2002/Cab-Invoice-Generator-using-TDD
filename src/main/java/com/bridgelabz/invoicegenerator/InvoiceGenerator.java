@@ -30,7 +30,7 @@ public class InvoiceGenerator {
 	 * 
 	 * @return: double totalfare
 	 */
-	public double CalculateFare(double distance, double time, RideType ride) {
+	public double calculateFare(double distance, double time, RideType ride) {
 
 		if (distance <= 0)
 			throw new IllegalArgumentException("Distance should be greater than zero");
@@ -68,10 +68,10 @@ public class InvoiceGenerator {
 	 * 
 	 * @return: double totalfare
 	 */
-	public double MultipleRidesFare(List<Ride> rides) {
+	public double multipleRidesFare(List<Ride> rides) {
 		double totalfare = 0;
 		for (Ride ride : rides)
-			totalfare += CalculateFare(ride.getDistance(), ride.getTime(), ride.getRide());
+			totalfare += calculateFare(ride.getDistance(), ride.getTime(), ride.getRide());
 		return totalfare;
 	}
 
@@ -83,12 +83,12 @@ public class InvoiceGenerator {
 	 * 
 	 * @return: Invoice
 	 */
-	public Invoice InvoiceSummary(List<Ride> rides) {
+	public Invoice invoiceSummary(List<Ride> rides) {
 		int totalride = 0;
 		double totalFare = 0;
 		for (Ride ride : rides) {
 			totalride += 1;
-			totalFare += CalculateFare(ride.getDistance(), ride.getTime(), ride.getRide());
+			totalFare += calculateFare(ride.getDistance(), ride.getTime(), ride.getRide());
 		}
 
 		double avgFare = totalFare / totalride;
